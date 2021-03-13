@@ -8,14 +8,12 @@ public class MainMenu : MonoBehaviour
     {
         Debug.Log("New Game!");
     }
+
     public void LoadGame()
     {
         Debug.Log("Load Game!");
     }
-    public void Options()
-    {
-        Debug.Log("Options!");
-    }
+
     public void QuitGame()
     {
         Debug.Log("Quit!");
