@@ -16,6 +16,11 @@ public class UserInputControl : MonoBehaviour
     void Update()
     {
         horizontalMoveAmount = Input.GetAxisRaw("Horizontal");
+        if (Input.GetButtonDown("Jump"))
+        {
+             controller?.Jump();
+        }
+        
     }
 
     void FixedUpdate()
