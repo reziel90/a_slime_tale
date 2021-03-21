@@ -150,16 +150,25 @@ MonoBehaviour:
   m_GameObject: {fileID: 353671876}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4f231c4fb786f3946a6b90b886c48677, type: 3}
+  m_Script: {fileID: 11500000, guid: 01614664b831546d2ae94a42149d80ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_HorizontalAxis: Horizontal
-  m_VerticalAxis: Vertical
-  m_SubmitButton: Submit
-  m_CancelButton: Cancel
-  m_InputActionsPerSecond: 10
-  m_RepeatDelay: 0.5
-  m_ForceModuleActive: 0
+  m_MoveRepeatDelay: 0.5
+  m_MoveRepeatRate: 0.1
+  m_ActionsAsset: {fileID: -944628639613478452, guid: 0fcc9e370f32f3f40a8c65e3aaa0d3a5,
+    type: 3}
+  m_PointAction: {fileID: 0}
+  m_MoveAction: {fileID: 0}
+  m_SubmitAction: {fileID: 0}
+  m_CancelAction: {fileID: 0}
+  m_LeftClickAction: {fileID: 0}
+  m_MiddleClickAction: {fileID: 0}
+  m_RightClickAction: {fileID: 0}
+  m_ScrollWheelAction: {fileID: 0}
+  m_TrackedDevicePositionAction: {fileID: 0}
+  m_TrackedDeviceOrientationAction: {fileID: 0}
+  m_DeselectOnBackgroundClick: 1
+  m_PointerBehavior: 0
 --- !u!114 &353671878
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -416,8 +425,8 @@ GameObject:
   - component: {fileID: 1995104063}
   - component: {fileID: 1995104062}
   - component: {fileID: 1995104061}
-  - component: {fileID: 1995104066}
   - component: {fileID: 1995104065}
+  - component: {fileID: 1995104066}
   m_Layer: 0
   m_Name: DummyChar
   m_TagString: Untagged
@@ -528,23 +537,25 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1995104065
-MonoBehaviour:
+--- !u!95 &1995104065
+Animator:
+  serializedVersion: 3
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1995104060}
   m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c92454cb446e0f74889d4c1220543c17, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_MovementSmoothing: 0.05
-  m_Speed: 40
-  m_Jump: 40
-  inAirMovement: 0
-  enableDoubleJump: 0
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: a68c1bbcddc82ec45b3af612fc73d950, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!114 &1995104066
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -554,6 +565,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1995104060}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 99f45a9c67b2fcc4e9c4944a97935c0b, type: 3}
+  m_Script: {fileID: 11500000, guid: b9e374d08049f1a44a43ad6766aec3af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_Speed: 10
+  m_Jump: 30
+  inAirMovement: 1
+  enableDoubleJump: 1
