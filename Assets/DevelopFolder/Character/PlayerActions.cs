@@ -90,6 +90,14 @@ public class PlayerActions : MonoBehaviour, IGameplayActions
         if (inAirMovement || _isGrounded)
         {
             _velocity_X = context.ReadValue<float>() * m_Speed * 10f;
+            if (_velocity_X > 0)
+            {
+                GetComponent<SpriteRenderer>().flipX = false;
+            }
+            else if (_velocity_X < 0)
+            {
+                GetComponent<SpriteRenderer>().flipX = true;
+            }
         }
     }
 
