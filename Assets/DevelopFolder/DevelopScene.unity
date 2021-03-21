@@ -456,7 +456,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 906952631}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 28.12, y: 0.61, z: 0}
+  m_LocalPosition: {x: 9.3, y: 0.61, z: 0}
   m_LocalScale: {x: 1, y: 11.399029, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -742,7 +742,7 @@ GameObject:
   - component: {fileID: 1995104066}
   m_Layer: 0
   m_Name: DummyChar
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -781,9 +781,9 @@ CircleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.013832092, y: 0.05021426}
+  m_Offset: {x: 0.013832092, y: 0.05665821}
   serializedVersion: 2
-  m_Radius: 0.3375923
+  m_Radius: 0.3403191
 --- !u!212 &1995104063
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -880,11 +880,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9e374d08049f1a44a43ad6766aec3af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Speed: 40
-  m_Jump: 40
+  m_Speed: 10
+  m_Jump: 32
   inAirMovement: 1
-  enableDoubleJump: 1
-  _velocity_X: 0
+  enableDoubleJump: 0
+  enableRotateOnWalls: 1
+  _groundDistance: 0.36
+  _wallDistance: 0.36
 --- !u!1001 &957973504300906001
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -947,6 +949,11 @@ PrefabInstance:
       propertyPath: _player
       value: 
       objectReference: {fileID: 1995104064}
+    - target: {fileID: 957973504416494334, guid: 467c46f9c692a474c9a7f3fd2a79f2f9,
+        type: 3}
+      propertyPath: _cameraDistance
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 957973504416494335, guid: 467c46f9c692a474c9a7f3fd2a79f2f9,
         type: 3}
       propertyPath: m_RootOrder

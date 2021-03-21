@@ -10,12 +10,16 @@ public class PlayerActions : MonoBehaviour, IGameplayActions
     [Range(0, 100f)] [SerializeField] private float m_Jump = 30f;
     [SerializeField] bool inAirMovement = false;
     [SerializeField] bool enableDoubleJump = false;
+    [SerializeField] bool enableRotateOnWalls = false;
     private bool _isGrounded;
+    private bool _isHangedLeft, _isHangedRight;
     private bool _isDoubleJump;
     private bool _isFalling;
     private int _groundMask;
     private PlayerController _controller;
-    [SerializeField] private float _velocity_X;
+    private float _velocity_X;
+    [Range(0, 5)] [SerializeField] private float _groundDistance = 0.4f;
+    [Range(0, 5)] [SerializeField] private float _wallDistance = 0.5f;
 
     public void Start()
     {
@@ -32,18 +36,57 @@ public class PlayerActions : MonoBehaviour, IGameplayActions
 
     public void OnEnable()
     {
-        _controller.Enable();
+        _controller?.Enable();
     }
     public void OnDisable()
     {
-        _controller.Disable();
+        _controller?.Disable();
+    }
+
+    private void CheckGround()
+    {
+        _isGrounded = Physics2D.Raycast(transform.position, Vector2.down, _groundDistance, _groundMask).collider != null ? true : false;
+    }
+
+    private void CheckDoubleJump()
+    {
+        _isDoubleJump = _isGrounded ? false : _isDoubleJump;
+    }
+
+    private void CheckHanged()
+    {
+        _isHangedLeft = Physics2D.Raycast(transform.position, Vector2.left, _wallDistance, _groundMask).collider != null ? true : false;
+        _isHangedRight = Physics2D.Raycast(transform.position, Vector2.right, _wallDistance, _groundMask).collider != null ? true : false;
+        if (enableRotateOnWalls) RotateHanged();
+    }
+
+    private void RotateHanged()
+    {
+        if (_isHangedLeft && !_isGrounded)
+        {
+            transform.eulerAngles = new Vector3(transform.eulerAngles.x, transform.eulerAngles.y, -90);
+        }
+        else if (_isHangedRight && !_isGrounded)
+        {
+            transform.eulerAngles = new Vector3(transform.eulerAngles.x, transform.eulerAngles.y, 90);
+        }
+        else
+        {
+            transform.eulerAngles = new Vector3(transform.eulerAngles.x, transform.eulerAngles.y, 0);
+        }
+    }
+
+    private void CheckFalling()
+    {
+        _isFalling = _rigidBody2D.velocity.y < 0 && !_isGrounded;
     }
 
     public void Update()
     {
-        _isGrounded = Physics2D.Raycast(transform.position, Vector2.down, 0.52f, _groundMask).collider != null ? true : false;
-        _isDoubleJump = _isGrounded ? false : _isDoubleJump;
-        _isFalling = _rigidBody2D.velocity.y < 0 && !_isGrounded;
+        CheckGround();
+        CheckDoubleJump();
+        CheckFalling();
+        CheckHanged();
     }
 
     public void OnHide(UnityEngine.InputSystem.InputAction.CallbackContext context)
