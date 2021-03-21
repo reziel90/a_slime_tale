@@ -15,6 +15,7 @@ public class PlayerActions : MonoBehaviour, IGameplayActions
     private bool _isFalling;
     private int _groundMask;
     private PlayerController _controller;
+    [SerializeField] private float _velocity_X;
 
     public void Start()
     {
@@ -88,11 +89,12 @@ public class PlayerActions : MonoBehaviour, IGameplayActions
     {
         if (inAirMovement || _isGrounded)
         {
-            _rigidBody2D.velocity = new Vector2(context.ReadValue<float>() * m_Speed, _rigidBody2D.velocity.y);
+            _velocity_X = context.ReadValue<float>() * m_Speed * 10f;
         }
     }
 
-    public void OnFixedUpdate()
+    void FixedUpdate()
     {
+        _rigidBody2D.velocity = new Vector2(_velocity_X * Time.fixedDeltaTime, _rigidBody2D.velocity.y);
     }
 }
