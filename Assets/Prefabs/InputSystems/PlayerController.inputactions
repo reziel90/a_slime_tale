@@ -120,6 +120,60 @@
                     "isPartOfComposite": true
                 }
             ]
+        },
+        {
+            "name": "MenuNavigation",
+            "id": "8493d1a4-a6f5-4c14-bcb3-d7c23dcb5456",
+            "actions": [
+                {
+                    "name": "New action",
+                    "type": "Button",
+                    "id": "75b7f5fc-2e95-4f3a-96e3-88b54bb6d86c",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "6dd33644-8a0c-4ebc-93d9-6070eff59e4b",
+                    "path": "",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "New action",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "TransformationMenu",
+            "id": "c794a627-ba5d-4147-9703-dd8325859903",
+            "actions": [
+                {
+                    "name": "New action",
+                    "type": "Button",
+                    "id": "7fca7e9b-d14a-46a8-8a8d-0b9059d91e56",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "d054db82-b044-407e-afb0-49a8a1209241",
+                    "path": "",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "New action",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": [

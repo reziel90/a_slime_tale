@@ -133,6 +133,60 @@ public class @PlayerController : IInputActionCollection, IDisposable
                     ""isPartOfComposite"": true
                 }
             ]
+        },
+        {
+            ""name"": ""MenuNavigation"",
+            ""id"": ""8493d1a4-a6f5-4c14-bcb3-d7c23dcb5456"",
+            ""actions"": [
+                {
+                    ""name"": ""New action"",
+                    ""type"": ""Button"",
+                    ""id"": ""75b7f5fc-2e95-4f3a-96e3-88b54bb6d86c"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""6dd33644-8a0c-4ebc-93d9-6070eff59e4b"",
+                    ""path"": """",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""New action"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
+        },
+        {
+            ""name"": ""TransformationMenu"",
+            ""id"": ""c794a627-ba5d-4147-9703-dd8325859903"",
+            ""actions"": [
+                {
+                    ""name"": ""New action"",
+                    ""type"": ""Button"",
+                    ""id"": ""7fca7e9b-d14a-46a8-8a8d-0b9059d91e56"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""d054db82-b044-407e-afb0-49a8a1209241"",
+                    ""path"": """",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""New action"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": [
@@ -159,6 +213,12 @@ public class @PlayerController : IInputActionCollection, IDisposable
         m_Gameplay_Jump = m_Gameplay.FindAction("Jump", throwIfNotFound: true);
         m_Gameplay_Hide = m_Gameplay.FindAction("Hide", throwIfNotFound: true);
         m_Gameplay_Move = m_Gameplay.FindAction("Move", throwIfNotFound: true);
+        // MenuNavigation
+        m_MenuNavigation = asset.FindActionMap("MenuNavigation", throwIfNotFound: true);
+        m_MenuNavigation_Newaction = m_MenuNavigation.FindAction("New action", throwIfNotFound: true);
+        // TransformationMenu
+        m_TransformationMenu = asset.FindActionMap("TransformationMenu", throwIfNotFound: true);
+        m_TransformationMenu_Newaction = m_TransformationMenu.FindAction("New action", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -253,6 +313,72 @@ public class @PlayerController : IInputActionCollection, IDisposable
         }
     }
     public GameplayActions @Gameplay => new GameplayActions(this);
+
+    // MenuNavigation
+    private readonly InputActionMap m_MenuNavigation;
+    private IMenuNavigationActions m_MenuNavigationActionsCallbackInterface;
+    private readonly InputAction m_MenuNavigation_Newaction;
+    public struct MenuNavigationActions
+    {
+        private @PlayerController m_Wrapper;
+        public MenuNavigationActions(@PlayerController wrapper) { m_Wrapper = wrapper; }
+        public InputAction @Newaction => m_Wrapper.m_MenuNavigation_Newaction;
+        public InputActionMap Get() { return m_Wrapper.m_MenuNavigation; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(MenuNavigationActions set) { return set.Get(); }
+        public void SetCallbacks(IMenuNavigationActions instance)
+        {
+            if (m_Wrapper.m_MenuNavigationActionsCallbackInterface != null)
+            {
+                @Newaction.started -= m_Wrapper.m_MenuNavigationActionsCallbackInterface.OnNewaction;
+                @Newaction.performed -= m_Wrapper.m_MenuNavigationActionsCallbackInterface.OnNewaction;
+                @Newaction.canceled -= m_Wrapper.m_MenuNavigationActionsCallbackInterface.OnNewaction;
+            }
+            m_Wrapper.m_MenuNavigationActionsCallbackInterface = instance;
+            if (instance != null)
+            {
+                @Newaction.started += instance.OnNewaction;
+                @Newaction.performed += instance.OnNewaction;
+                @Newaction.canceled += instance.OnNewaction;
+            }
+        }
+    }
+    public MenuNavigationActions @MenuNavigation => new MenuNavigationActions(this);
+
+    // TransformationMenu
+    private readonly InputActionMap m_TransformationMenu;
+    private ITransformationMenuActions m_TransformationMenuActionsCallbackInterface;
+    private readonly InputAction m_TransformationMenu_Newaction;
+    public struct TransformationMenuActions
+    {
+        private @PlayerController m_Wrapper;
+        public TransformationMenuActions(@PlayerController wrapper) { m_Wrapper = wrapper; }
+        public InputAction @Newaction => m_Wrapper.m_TransformationMenu_Newaction;
+        public InputActionMap Get() { return m_Wrapper.m_TransformationMenu; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(TransformationMenuActions set) { return set.Get(); }
+        public void SetCallbacks(ITransformationMenuActions instance)
+        {
+            if (m_Wrapper.m_TransformationMenuActionsCallbackInterface != null)
+            {
+                @Newaction.started -= m_Wrapper.m_TransformationMenuActionsCallbackInterface.OnNewaction;
+                @Newaction.performed -= m_Wrapper.m_TransformationMenuActionsCallbackInterface.OnNewaction;
+                @Newaction.canceled -= m_Wrapper.m_TransformationMenuActionsCallbackInterface.OnNewaction;
+            }
+            m_Wrapper.m_TransformationMenuActionsCallbackInterface = instance;
+            if (instance != null)
+            {
+                @Newaction.started += instance.OnNewaction;
+                @Newaction.performed += instance.OnNewaction;
+                @Newaction.canceled += instance.OnNewaction;
+            }
+        }
+    }
+    public TransformationMenuActions @TransformationMenu => new TransformationMenuActions(this);
     private int m_KeyboardMouseSchemeIndex = -1;
     public InputControlScheme KeyboardMouseScheme
     {
@@ -267,5 +393,13 @@ public class @PlayerController : IInputActionCollection, IDisposable
         void OnJump(InputAction.CallbackContext context);
         void OnHide(InputAction.CallbackContext context);
         void OnMove(InputAction.CallbackContext context);
+    }
+    public interface IMenuNavigationActions
+    {
+        void OnNewaction(InputAction.CallbackContext context);
+    }
+    public interface ITransformationMenuActions
+    {
+        void OnNewaction(InputAction.CallbackContext context);
     }
 }

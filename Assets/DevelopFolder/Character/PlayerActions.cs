@@ -4,36 +4,20 @@ using static PlayerController;
 
 public class PlayerActions : MonoBehaviour, IGameplayActions
 {
-    private Rigidbody2D _rigidBody2D;
-    private Animator _animator;
-    [Range(0, 100f)] [SerializeField] private float m_Speed = 10f;
-    [Range(0, 100f)] [SerializeField] private float m_Jump = 30f;
-    [SerializeField] bool inAirMovement = false;
-    [SerializeField] bool enableDoubleJump = false;
-    [SerializeField] bool enableRotateOnWalls = false;
-    private bool _isGrounded;
-    private bool _isHangedLeft, _isHangedRight;
-    private bool _isDoubleJump;
-    private bool _isFalling;
+    #region Properties
+    [Range(10, 1000f)] [SerializeField] private float playerMovementSpeed = 100f;
+    [Range(10, 1000f)] [SerializeField] private float playerJumpSpeed = 300f;
+    [SerializeField] private bool _canMoveinAir = true;
+
+    public bool isGrounded, isDoubleJump, isMoving, isJumping;
     private int _groundMask;
     private PlayerController _controller;
-    private float _velocity_X;
+    private float _vectorSpeed_X;
     [Range(0, 5)] [SerializeField] private float _groundDistance = 0.4f;
-    [Range(0, 5)] [SerializeField] private float _wallDistance = 0.5f;
+    private StatesManager statesManager;
+    #endregion
 
-    public void Start()
-    {
-        _rigidBody2D = GetComponent<Rigidbody2D>();
-        _animator = GetComponent<Animator>();
-
-        _groundMask = LayerMask.GetMask("Ground");
-    }
-    public void Awake()
-    {
-        _controller = new PlayerController();
-        _controller.Gameplay.SetCallbacks(this);
-    }
-
+    #region ControllerEvents
     public void OnEnable()
     {
         _controller?.Enable();
@@ -42,53 +26,6 @@ public class PlayerActions : MonoBehaviour, IGameplayActions
     {
         _controller?.Disable();
     }
-
-    private void CheckGround()
-    {
-        _isGrounded = Physics2D.Raycast(transform.position, Vector2.down, _groundDistance, _groundMask).collider != null ? true : false;
-    }
-
-    private void CheckDoubleJump()
-    {
-        _isDoubleJump = _isGrounded ? false : _isDoubleJump;
-    }
-
-    private void CheckHanged()
-    {
-        _isHangedLeft = Physics2D.Raycast(transform.position, Vector2.left, _wallDistance, _groundMask).collider != null ? true : false;
-        _isHangedRight = Physics2D.Raycast(transform.position, Vector2.right, _wallDistance, _groundMask).collider != null ? true : false;
-        if (enableRotateOnWalls) RotateHanged();
-    }
-
-    private void RotateHanged()
-    {
-        if (_isHangedLeft && !_isGrounded)
-        {
-            transform.eulerAngles = new Vector3(transform.eulerAngles.x, transform.eulerAngles.y, -90);
-        }
-        else if (_isHangedRight && !_isGrounded)
-        {
-            transform.eulerAngles = new Vector3(transform.eulerAngles.x, transform.eulerAngles.y, 90);
-        }
-        else
-        {
-            transform.eulerAngles = new Vector3(transform.eulerAngles.x, transform.eulerAngles.y, 0);
-        }
-    }
-
-    private void CheckFalling()
-    {
-        _isFalling = _rigidBody2D.velocity.y < 0 && !_isGrounded;
-    }
-
-    public void Update()
-    {
-        CheckGround();
-        CheckDoubleJump();
-        CheckFalling();
-        CheckHanged();
-    }
-
     public void OnHide(UnityEngine.InputSystem.InputAction.CallbackContext context)
     {
         if (context.started)
@@ -103,49 +40,70 @@ public class PlayerActions : MonoBehaviour, IGameplayActions
 
         throw new NotImplementedException();
     }
-
     public void OnJump(UnityEngine.InputSystem.InputAction.CallbackContext context)
     {
-        if (context.started)
+        if (context.performed)
         {
-
-        }
-        else if (context.performed)
-        {
-            if (_isGrounded || (enableDoubleJump && !_isDoubleJump))
-            {
-                if (!_isGrounded)
-                {
-                    _isDoubleJump = true;
-                }
-                Vector2 _forceJump = new Vector2(_rigidBody2D.velocity.x, m_Jump * 10f);
-                _rigidBody2D.AddForce(_forceJump);
-            }
-        }
-        else if (context.canceled)
-        {
-
+            isJumping = true;
+            Debug.Log("IsJumping = True;");
         }
     }
-
     public void OnMove(UnityEngine.InputSystem.InputAction.CallbackContext context)
     {
-        if (inAirMovement || _isGrounded)
+        float amount = context.ReadValue<float>();
+        if (amount == 0)
         {
-            _velocity_X = context.ReadValue<float>() * m_Speed * 10f;
-            if (_velocity_X > 0)
-            {
-                GetComponent<SpriteRenderer>().flipX = false;
-            }
-            else if (_velocity_X < 0)
-            {
-                GetComponent<SpriteRenderer>().flipX = true;
-            }
+            isMoving = false;
         }
+        else
+        {
+            isMoving = true; //quando metterlo false?
+            _vectorSpeed_X = amount * playerMovementSpeed;
+        }
+        Debug.Log(context);
     }
 
-    void FixedUpdate()
+    #endregion
+
+    public void Start()
     {
-        _rigidBody2D.velocity = new Vector2(_velocity_X * Time.fixedDeltaTime, _rigidBody2D.velocity.y);
+        statesManager = new StatesManager();
+        statesManager.SetNextState(new Idle(this.gameObject, statesManager));
+        _groundMask = LayerMask.GetMask("Ground");
     }
+    public void Awake()
+    {
+
+        _controller = new PlayerController();
+        _controller.Gameplay.SetCallbacks(this);
+    }
+    public void Update()
+    {
+        CheckGround();
+        statesManager.Update();
+    }
+    public void FixedUpdate()
+    {
+        statesManager.FixedUpdate();
+    }
+    public float GetMovementSpeed()
+    {
+        return _vectorSpeed_X;
+    }
+    public float GetJumpSpeed()
+    {
+        return playerJumpSpeed;
+    }
+    public bool CanMoveInAir()
+    {
+        return _canMoveinAir;
+    }
+    private void CheckGround()
+    {
+        bool prevState = isGrounded;
+        isGrounded = Physics2D.Raycast(transform.position, Vector2.down, _groundDistance, _groundMask).collider != null ? true : false;
+        //isJumping = prevState && isGrounded ? false : isJumping;
+        Debug.DrawRay(transform.position, Vector2.down, Color.red, _groundDistance);
+    }
+
 }

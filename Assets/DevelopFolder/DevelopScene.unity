@@ -736,10 +736,10 @@ GameObject:
   m_Component:
   - component: {fileID: 1995104064}
   - component: {fileID: 1995104063}
-  - component: {fileID: 1995104062}
   - component: {fileID: 1995104061}
   - component: {fileID: 1995104065}
   - component: {fileID: 1995104066}
+  - component: {fileID: 1995104062}
   m_Layer: 0
   m_Name: DummyChar
   m_TagString: Player
@@ -768,8 +768,8 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!58 &1995104062
-CircleCollider2D:
+--- !u!70 &1995104062
+CapsuleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -777,13 +777,13 @@ CircleCollider2D:
   m_GameObject: {fileID: 1995104060}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 6200000, guid: 164ea8d98ca6bdd4999dcecffa98971e, type: 2}
+  m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.013832092, y: 0.05665821}
-  serializedVersion: 2
-  m_Radius: 0.3403191
+  m_Offset: {x: -0.035701755, y: 0.13805512}
+  m_Size: {x: 0.42339686, y: 0.27654648}
+  m_Direction: 1
 --- !u!212 &1995104063
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -824,7 +824,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 060df632f324c1f4c941f054864c7cd8, type: 3}
+  m_Sprite: {fileID: 6165729373761602754, guid: 955f9477a78cd5f4c99b7b0c37668460,
+    type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -880,13 +881,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9e374d08049f1a44a43ad6766aec3af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Speed: 10
-  m_Jump: 32
-  inAirMovement: 1
-  enableDoubleJump: 0
-  enableRotateOnWalls: 1
-  _groundDistance: 0.36
-  _wallDistance: 0.36
+  playerMovementSpeed: 100
+  playerJumpSpeed: 300
+  _canMoveinAir: 1
+  isGrounded: 0
+  isDoubleJump: 0
+  isMoving: 0
+  isJumping: 0
+  _groundDistance: 0.01
 --- !u!1001 &957973504300906001
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -894,6 +896,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 731605651958392985, guid: 467c46f9c692a474c9a7f3fd2a79f2f9,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 731605651958392985, guid: 467c46f9c692a474c9a7f3fd2a79f2f9,
         type: 3}
       propertyPath: m_AssetsPPU
