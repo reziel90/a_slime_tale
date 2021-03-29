@@ -737,9 +737,9 @@ GameObject:
   - component: {fileID: 1995104064}
   - component: {fileID: 1995104063}
   - component: {fileID: 1995104061}
+  - component: {fileID: 1995104062}
   - component: {fileID: 1995104065}
   - component: {fileID: 1995104066}
-  - component: {fileID: 1995104062}
   m_Layer: 0
   m_Name: DummyChar
   m_TagString: Player
@@ -781,8 +781,8 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.035701755, y: 0.13805512}
-  m_Size: {x: 0.42339686, y: 0.27654648}
+  m_Offset: {x: 0, y: 0.10984043}
+  m_Size: {x: 0.39923352, y: 0.22382529}
   m_Direction: 1
 --- !u!212 &1995104063
 SpriteRenderer:
@@ -882,13 +882,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerMovementSpeed: 100
-  playerJumpSpeed: 300
+  playerJumpSpeed: 350
   _canMoveinAir: 1
   isGrounded: 0
-  isDoubleJump: 0
   isMoving: 0
   isJumping: 0
-  _groundDistance: 0.01
+  isLanding: 0
+  _groundMask: 0
 --- !u!1001 &957973504300906001
 PrefabInstance:
   m_ObjectHideFlags: 0

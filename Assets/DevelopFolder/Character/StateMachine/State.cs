@@ -9,6 +9,7 @@ public abstract class State
     protected PlayerActions _player;
     protected Animator _animator;
     protected StatesManager _manager;
+    protected SpriteRenderer _spriteRenderer;
 
     public State(GameObject character, StatesManager manager)
     {
@@ -17,6 +18,7 @@ public abstract class State
         _rb = character.GetComponent<Rigidbody2D>();
         _player = character.GetComponent<PlayerActions>();
         _animator = character.GetComponent<Animator>();
+        _spriteRenderer = _player.GetComponent<SpriteRenderer>();
         _manager = manager;
     }
 

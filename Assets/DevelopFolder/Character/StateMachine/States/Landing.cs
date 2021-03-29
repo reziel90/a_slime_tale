@@ -22,6 +22,5 @@ public class Landing : State
             _player.isJumping = false;
             _manager.SetNextState(new Idle(_character, _manager));
         }
-
     }
 }

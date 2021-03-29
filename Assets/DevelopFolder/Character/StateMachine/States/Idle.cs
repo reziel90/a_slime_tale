@@ -12,7 +12,7 @@ public class Idle : State
     public override void OnEnterState()
     {
         _rb.velocity = new Vector2(0, _rb.velocity.y);
-        _animator.Play("Idle"); //Non voglio usare le stringhe per le animazioni!
+        _animator.Play("Idle");
     }
 
     public override void OnExitState()
@@ -31,5 +31,4 @@ public class Idle : State
             _manager.SetNextState(new Jump(_character, _manager));
         }
     }
-
 }
