@@ -12,7 +12,7 @@ public class PlayerInputs : MonoBehaviour, IGameplayActions
     private CircleCollider2D _collider;
     private float jumpTime;
     [SerializeField] private float moveDirection;
-    [SerializeField] private bool isGrounded, isJumping, checkForLanding, jumpActionExecute, isLanded, canMove;
+    [SerializeField] private bool isGrounded, isJumping, jumpActionExecute, isLanded, canMove;
     private int groundMask;
     private float groundCheckError = 0.01f;
 
@@ -28,9 +28,7 @@ public class PlayerInputs : MonoBehaviour, IGameplayActions
         jumpActionExecute = isGrounded && isJumping;
         if (jumpActionExecute)
         {
-            Debug.Log("JumpCommand!");
             jumpTime = maxJumpTime;
-            checkForLanding = true;
         }
     }
 
