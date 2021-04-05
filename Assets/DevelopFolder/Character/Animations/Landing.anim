@@ -72,26 +72,18 @@ AnimationClip:
   m_HasMotionFloatCurves: 0
   m_Events:
   - time: 0
-    functionName: ManageMovement
+    functionName: CanMove
     data: 
-    objectReferenceParameter: {fileID: 11500000, guid: b9e374d08049f1a44a43ad6766aec3af,
+    objectReferenceParameter: {fileID: 11500000, guid: 6125c43620a1fff47b145fa268b36454,
       type: 3}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
   - time: 0.5
-    functionName: ManageMovement
+    functionName: CanMove
     data: 
-    objectReferenceParameter: {fileID: 11500000, guid: b9e374d08049f1a44a43ad6766aec3af,
+    objectReferenceParameter: {fileID: 11500000, guid: 6125c43620a1fff47b145fa268b36454,
       type: 3}
     floatParameter: 0
     intParameter: 1
-    messageOptions: 0
-  - time: 0.5
-    functionName: Land
-    data: 
-    objectReferenceParameter: {fileID: 11500000, guid: b9e374d08049f1a44a43ad6766aec3af,
-      type: 3}
-    floatParameter: 0
-    intParameter: 0
     messageOptions: 0

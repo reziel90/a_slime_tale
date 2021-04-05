@@ -740,6 +740,7 @@ GameObject:
   - component: {fileID: 1995104062}
   - component: {fileID: 1995104065}
   - component: {fileID: 1995104066}
+  - component: {fileID: 1995104067}
   m_Layer: 0
   m_Name: DummyChar
   m_TagString: Player
@@ -878,17 +879,34 @@ MonoBehaviour:
   m_GameObject: {fileID: 1995104060}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b9e374d08049f1a44a43ad6766aec3af, type: 3}
+  m_Script: {fileID: 11500000, guid: 6125c43620a1fff47b145fa268b36454, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerMovementSpeed: 100
-  playerJumpSpeed: 350
-  _canMoveinAir: 1
-  isGrounded: 0
-  isMoving: 0
-  isJumping: 0
-  isLanding: 0
-  _groundMask: 0
+  speed: 60
+  jumpForce: 200
+  maxJumpTime: 0.5
+  idleAnimation: {fileID: 7400000, guid: 4e3cb237339fe2f49976c5307355bfc6, type: 2}
+  walkAnimation: {fileID: 7400000, guid: 2ed9fbbafc28f8b4394818ee3d985eab, type: 2}
+  JumpRiseAnimation: {fileID: 7400000, guid: 2c2bc649972a70c4f8d588e31e8d5455, type: 2}
+  JumpInAirAnimation: {fileID: 7400000, guid: 9ab5c80de4e4e1b4fa11b89f0760b0c8, type: 2}
+  JumpLandingAnimation: {fileID: 7400000, guid: 1295c1df2e70d5a49a609297aad2e972,
+    type: 2}
+--- !u!58 &1995104067
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1995104060}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0.14}
+  serializedVersion: 2
+  m_Radius: 0.15
 --- !u!1001 &957973504300906001
 PrefabInstance:
   m_ObjectHideFlags: 0
